@@ -4,13 +4,10 @@ const provider = require('../../config/provider')
 class Http extends base{
     
     async main(ctx,next){
-        let GETBody=ctx.request.query?ctx.request.query:{};
-        let POSTBody=ctx.request.body?ctx.request.body:{};
-        let requestBody=Object.assign(GETBody,POSTBody);
         let controllerList=provider.controllerList;
         let url=ctx.url;
         let controller=url.split('/')[2];
-        let action=url.split('/')[3];
+        let action=url.split('/')[3].split('?')[0];
         if (!controller) {
             ctx.status = 200;
             ctx.body = {
@@ -20,7 +17,7 @@ class Http extends base{
             return next;
         }
         let controllerKeyList=Object.keys(controllerList);
-        if (!(controllerKeyList.indexOf(controller) >= 0) || !controllerList[controller].controllerFn[action]) {
+        if (!(controllerKeyList.indexOf(controller) >= 0) || !new controllerList[controller].controllerFn()[action]) {
             ctx.status = 200;
             ctx.body = {
                 code:10000,
@@ -29,7 +26,10 @@ class Http extends base{
             return next;
         }
         try {
-            let controllerFn= controllerList[controller].controllerFn;
+            let GETBody=ctx.request.query?ctx.request.query:{};
+            let POSTBody=ctx.request.body?ctx.request.body:{};
+            let requestBody=Object.assign(GETBody,POSTBody);
+            let controllerFn= new controllerList[controller].controllerFn();
             let res= await controllerFn[action](requestBody);
             ctx.status = 200;
             if (res.sourceData === true) {
@@ -42,6 +42,7 @@ class Http extends base{
             }
             await next()
         } catch (error) {
+            console.log('error',error)
             if (error.code) {
                 ctx.status = 200;
                 ctx.body = {

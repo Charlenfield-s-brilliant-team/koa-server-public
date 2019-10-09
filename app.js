@@ -1,3 +1,12 @@
+/**
+ * app.js
+ * 核心配置文件
+ * form Charlenfield
+ * version:1.0.0
+ * updataTime:2019年10月9日
+ * updateContent:
+    1.新增使用koa-bodyparser
+ */
 require('babel-register')
 const Koa = require('koa')
 const chalk = require('chalk')
@@ -12,8 +21,9 @@ new Mysql(config,provider)
 
 //使用路由转发请求
 const router = require('./router/router')()
-app
-  	.use(router.routes())
+
+app.use(bodyParser())
+app.use(router.routes())
 
 app.listen(config.port, () => {
     console.log(

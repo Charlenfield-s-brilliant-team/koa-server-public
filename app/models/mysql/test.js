@@ -12,15 +12,11 @@ module.exports = function(sequelize, DataTypes) {
           comment: "角色名称"
       }
   }, {
-      underscored: true,
-      timestamps: false,
-      freezeTableName: true
-  }, {
       underscored: true, //额外字段以下划线来分割
       createdAt: "created_at",
       updatedAt: "updated_at",
       timestamps: false, //取消默认生成的createdAt、updatedAt字段
       freezeTableName: true, // Model 对应的表名将与model名相同
-      comment: "角色表"
+      comment: "测试表"
   });
 }

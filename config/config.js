@@ -1,7 +1,7 @@
 module.exports = {
     db:{
         mysql:{
-            dbname:'saep_saas',
+            dbname:'koa_server',
             username:'root',
             password:"111111",
             tablePrefix:"app",

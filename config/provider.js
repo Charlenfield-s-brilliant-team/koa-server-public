@@ -1,6 +1,5 @@
 const controller_user = require('../app/controller/user');
 const path=require('path');
-const test=path.join(__dirname,'../app/models/test');
 
 module.exports = {
     controllerList:{
@@ -11,7 +10,8 @@ module.exports = {
     },
     Model:{
         mysql:{
-            test:test
+            test:path.join(__dirname,'../app/models/mysql/test'),
+            user:path.join(__dirname,'../app/models/mysql/user')
         }
     }
 };

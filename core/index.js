@@ -1,11 +1,10 @@
-
-// const DaoBase = require('./DB/DaoBase')
-// const config = require('../config/config')
-
-// class index{
-//     constructor(){
-//         new DaoBase(config);
-//     }
-	
-// }
-// module.exports = new index();
+const ControllerBase = require("./base/ControllerBase");
+const SimpleError = require("./base/SimpleError");
+module.exports = {
+	BASE:{
+		ControllerBase:ControllerBase,
+	},
+	ERROR:{
+		SimpleError:SimpleError
+	}
+};

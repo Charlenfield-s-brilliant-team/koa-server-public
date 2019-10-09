@@ -1,6 +1,8 @@
 const template = require('./public/ErrorTemplate');
+const ControllerBase = require('../../core/index').BASE.ControllerBase;
 
-class UserController{
+class UserController extends ControllerBase {
+
 	async afterInit() {
 		
 	}
@@ -9,11 +11,12 @@ class UserController{
 	 * @param {*}  data
 	 */
 	async signup(data) {
+		console.log(data)
+		this.checkKeyExists(data, 'phoneNumber');
 		// template.error.call(this,'sqlerror');
-		
-		console.log(this.models);
+		// this.error(123,"aaaa");
 		return true;
 	}
 
 }
-module.exports = new UserController();
+module.exports = UserController;
